@@ -5,7 +5,7 @@ export function TodoSearch({ value, updateValue }) {
       value={value}
       onChange={(e) => updateValue(e.target.value)}
       className="rounded-2x border border-black w-3/4 mx-auto grid place-items-center p-1"
-      placeholder="Comprar arroz"
+      placeholder="Comprar arroz para la cena"
     />
   );
 }
