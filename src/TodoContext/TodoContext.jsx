@@ -6,6 +6,7 @@ const TodoContext = createContext();
 function TodoProvider({ children }) {
   const [todos, setTodos] = useState(Data);
   const [valueSearch, setValueSearch] = useState("");
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const completedTodos = todos.filter((todo) => todo.checked === true).length;
 
@@ -31,6 +32,9 @@ function TodoProvider({ children }) {
     setTodos(searchTodos);
   }, [valueSearch]);
 
+  function onToggleModal() {
+    return setIsOpenModal((prevValue) => !prevValue);
+  }
   return (
     <TodoContext.Provider
       value={{
@@ -41,6 +45,8 @@ function TodoProvider({ children }) {
         deleteTodo,
         valueSearch,
         setValueSearch,
+        onToggleModal,
+        isOpenModal,
       }}
     >
       {children}
