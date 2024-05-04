@@ -6,7 +6,7 @@ import "../index.css";
 import { TodoContext } from "../TodoContext/TodoContext";
 import { TodoSearch } from "../TodoSearch/TodoSearch";
 import { TodoModal } from "../TodoModal/TodoModal";
-import { AddTodo } from "../AddTodo/AddTodo";
+import { AddTodoBtn } from "../AddTodoBtn/AddTodoBtn";
 export function AppUi() {
   const {
     todos,
@@ -18,6 +18,9 @@ export function AppUi() {
     setValueSearch,
     onToggleModal,
     isOpenModal,
+    modalValue,
+    setModalValue,
+    onAddTodo,
   } = useContext(TodoContext);
 
   return (
@@ -34,9 +37,16 @@ export function AppUi() {
             onDelete={() => deleteTodo(todo.id)}
           />
         ))}
-        <AddTodo onToggleModal={onToggleModal} />
+        <AddTodoBtn onToggleModal={onToggleModal} />
       </TodoList>
-      {isOpenModal && <TodoModal onToggleModal={onToggleModal} />}
+      {isOpenModal && (
+        <TodoModal
+          onToggleModal={onToggleModal}
+          onAddTodo={onAddTodo}
+          modalValue={modalValue}
+          setModalValue={setModalValue}
+        />
+      )}
     </>
   );
 }

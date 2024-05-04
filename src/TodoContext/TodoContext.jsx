@@ -7,6 +7,7 @@ function TodoProvider({ children }) {
   const [todos, setTodos] = useState(Data);
   const [valueSearch, setValueSearch] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [modalValue, setModalValue] = useState("");
 
   const completedTodos = todos.filter((todo) => todo.checked === true).length;
 
@@ -33,7 +34,21 @@ function TodoProvider({ children }) {
   }, [valueSearch]);
 
   function onToggleModal() {
+    setModalValue("");
     return setIsOpenModal((prevValue) => !prevValue);
+  }
+
+  function onAddTodo() {
+    const newTodos = [...todos];
+    newTodos.push({
+      task: modalValue,
+      checked: false,
+      id: newTodos.length,
+    });
+    setTodos(newTodos);
+    console.log("valor de modal value", modalValue);
+    console.log("valor del newTodos", newTodos);
+    setModalValue("");
   }
   return (
     <TodoContext.Provider
@@ -47,6 +62,9 @@ function TodoProvider({ children }) {
         setValueSearch,
         onToggleModal,
         isOpenModal,
+        modalValue,
+        setModalValue,
+        onAddTodo,
       }}
     >
       {children}
