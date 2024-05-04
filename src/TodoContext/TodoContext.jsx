@@ -9,6 +9,10 @@ function TodoProvider({ children }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [modalValue, setModalValue] = useState("");
 
+  let todosFiltrados = todos.filter((todo) =>
+    todo.task.toLocaleLowerCase().includes(valueSearch.toLocaleLowerCase())
+  );
+
   const completedTodos = todos.filter((todo) => todo.checked === true).length;
 
   function onUpdate(id) {
@@ -25,13 +29,21 @@ function TodoProvider({ children }) {
     const filtroTodos = newTodos.filter((todo) => todo.id !== id);
     setTodos(filtroTodos);
   }
-
-  useEffect(() => {
-    const searchTodos = Data.filter((todo) =>
-      todo.task.toLocaleLowerCase().includes(valueSearch)
-    );
-    setTodos(searchTodos);
-  }, [valueSearch]);
+  function onUpdateValueSearch() {
+    if (valueSearch !== "") {
+      todosFiltrados = todos.filter((todo) =>
+        todo.task.toLocaleLowerCase().includes(valueSearch.toLocaleLowerCase())
+      );
+    } else {
+      todosFiltrados = todos;
+    }
+  }
+  // useEffect(() => {
+  //   const searchTodos = Data.filter((todo) =>
+  //     todo.task.toLocaleLowerCase().includes(valueSearch)
+  //   );
+  //   setTodos(searchTodos);
+  // }, [valueSearch]);
 
   function onToggleModal() {
     setModalValue("");
@@ -65,6 +77,8 @@ function TodoProvider({ children }) {
         modalValue,
         setModalValue,
         onAddTodo,
+        onUpdateValueSearch,
+        todosFiltrados,
       }}
     >
       {children}

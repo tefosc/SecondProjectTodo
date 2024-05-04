@@ -9,7 +9,6 @@ import { TodoModal } from "../TodoModal/TodoModal";
 import { AddTodoBtn } from "../AddTodoBtn/AddTodoBtn";
 export function AppUi() {
   const {
-    todos,
     totalTodos,
     completedTodos,
     onUpdate,
@@ -21,14 +20,20 @@ export function AppUi() {
     modalValue,
     setModalValue,
     onAddTodo,
+    onUpdateValueSearch,
+    todosFiltrados,
   } = useContext(TodoContext);
 
   return (
     <>
       <Title total={totalTodos} completed={completedTodos} />
-      <TodoSearch value={valueSearch} updateValue={setValueSearch} />
+      <TodoSearch
+        value={valueSearch}
+        updateValue={setValueSearch}
+        onUpdateValueSearch={onUpdateValueSearch}
+      />
       <TodoList>
-        {todos.map((todo) => (
+        {todosFiltrados.map((todo) => (
           <TodoItem
             key={todo.id}
             task={todo.task}
