@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { UnCheck } from "../Icons/UnCheck";
 import { Check } from "../Icons/Check";
 import { Delete } from "../Icons/Delete";
+
 export function TodoItem({ task, check, onChange, onDelete }) {
   return (
     <li className="flex items-center  justify-around w-full h-12 ">
